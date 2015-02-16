@@ -1,0 +1,23 @@
+{
+  "name": "project",
+  "version": "0.0.1",
+  "description": "",
+  "author": "sugrob69",
+  "license": "ISC",
+  "devDependencies": {
+    "gulp": "^3.8.1",
+    "gulp-autoprefixer": "*",
+    "gulp-connect": "*",
+    "gulp-cssmin": "*",
+    "gulp-imagemin": "*",
+    "gulp-stylus": "*",
+    "nib": "*",
+    "gulp-sourcemaps": "*",
+    "gulp-rigger": "*",
+    "gulp-uglify": "*",
+    "gulp-watch": "*",
+    "imagemin-pngquant": "*",
+    "opn": "*",
+    "rimraf": "*"
+     }
+}
