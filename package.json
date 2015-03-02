@@ -12,6 +12,8 @@
     "gulp-imagemin": "*",
     "gulp-stylus": "*",
     "nib": "*",
+    "gulp.spritesmith": "*",
+    "gulp-concat": "*",
     "gulp-sourcemaps": "*",
     "gulp-rigger": "*",
     "gulp-uglify": "*",
