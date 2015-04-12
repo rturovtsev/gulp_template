@@ -1,26 +1,23 @@
 'use strict';
 
+
 //импортируем нужные плагины
 var gulp = require('gulp'),
-    watch = require('gulp-watch'),
-    uglify = require('gulp-uglify'),
-    cssmin = require('gulp-cssmin'),
     stylus = require('gulp-stylus'),
-    nib = require('nib'),
-    concat = require('gulp-concat'),
+    autoprefixer = require('gulp-autoprefixer'),
+    livereload = require('gulp-livereload'),
+    connect = require('gulp-connect'),
     sourcemaps = require('gulp-sourcemaps'),
     rigger = require('gulp-rigger'),
-    imagemin = require('gulp-imagemin'),
     spritesmith = require('gulp.spritesmith'),
     pngquant = require('imagemin-pngquant'),
     rimraf = require('rimraf'),
-    connect = require('gulp-connect'),
     opn = require('opn');
 
 
 //переменная с путями
 var path = {
-    build: { //Тут мы укажем куда складывать готовые после сборки файлы
+    build: { //Тут готовые после сборки файлы
         html: 'build/',
         js: 'build/common/js/',
         css: 'build/common/css/',
@@ -28,13 +25,11 @@ var path = {
         fonts: 'build/common/fonts/'
     },
     src: { //Пути откуда брать исходники
-        html: 'src/*.html', //Синтаксис src/*.html говорит gulp что мы хотим взять все файлы с расширением .html
-        jsplugins: 'src/js/plugins.js',//все js плагины
+        html: 'src/*.html',
         js: 'src/js/*.js',
-        styleplugins: 'src/css/plugins/*.css',//список стилей от плагинов
-        style: 'src/css/style.styl',//мои стили
-        stylesprite: 'src/css/',//сюда положим стили спрайтов
-        img: 'src/img/*.*', //Синтаксис img/**/*.* означает - взять все файлы всех расширений из папки и из вложенных каталогов
+        style: 'src/css/style.styl',
+        stylesprite: 'src/css/',
+        img: 'src/img/*.*',
         fonts: 'src/fonts/**/*.*',
         sprites: 'src/img/sprites/*.*'
     },
@@ -42,8 +37,9 @@ var path = {
         html: 'src/**/*.html',
         js: 'src/js/**/*.js',
         style: 'src/css/**/*.styl',
-        img: 'src/img/**/*.*',
-        fonts: 'src/fonts/**/*.*'
+        img: 'src/img/*.*',
+        fonts: 'src/fonts/**/*.*',
+        sprites: 'src/img/sprites/*.*'
     },
     clean: './build'
 };
@@ -58,17 +54,17 @@ var server = {
 
 //задача по сборке html
 gulp.task('html:build', function () {
-    gulp.src(path.src.html) //Выберем файлы по нужному пути
-        .pipe(rigger()) //Прогоним через rigger
-        .pipe(gulp.dest(path.build.html)) //Выплюнем их в папку build
-        .pipe(connect.reload()); //И перезагрузим наш сервер для обновлений
+    gulp.src(path.src.html)
+        .pipe(rigger())
+        .pipe(gulp.dest(path.build.html))
+        .pipe(livereload());
 });
 
 
 //задача по сборке спрайтов
-gulp.task('sprite', function() {
+gulp.task('sprite:build', function() {
     var spriteData =
-        gulp.src(path.src.sprites) // путь, откуда берем картинки для спрайта
+        gulp.src(path.src.sprites)
             .pipe(spritesmith({
                 imgName: 'sprite.png',
                 cssName: 'sprite.styl',
@@ -81,105 +77,76 @@ gulp.task('sprite', function() {
                 }
             }));
 
-    spriteData.img.pipe(gulp.dest(path.build.img)); // путь, куда сохраняем картинку
-    spriteData.css.pipe(gulp.dest(path.src.stylesprite)); // путь, куда сохраняем стили
-});
-
-
-//задача по сборке js плагинов
-gulp.task('jsplugins:build', function () {
-    gulp.src(path.src.jsplugins) //Найдем файл с плагинами
-        .pipe(rigger()) //Прогоним через rigger
-        .pipe(sourcemaps.init()) //Инициализируем sourcemap
-        //.pipe(uglify()) //Сожмем наш js
-        .pipe(sourcemaps.write()) //Пропишем карты
-        .pipe(gulp.dest(path.build.js)); //Выплюнем готовый файл в build
+    spriteData.img.pipe(gulp.dest(path.build.img));
+    spriteData.css.pipe(gulp.dest(path.src.stylesprite));
 });
 
 
 //задача по сборке своих js
 gulp.task('js:build', function () {
-    gulp.src(path.src.js) //Найдем наш style.js файл
-        .pipe(rigger()) //Прогоним через rigger
-        .pipe(gulp.dest(path.build.js)) //Выплюнем готовый файл в build
-        .pipe(connect.reload()); //И перезагрузим сервер
-});
-
-
-//задача по сборке стилей плагинов
-gulp.task('styleplugin:build', function () {
-    gulp.src(path.src.styleplugins) //Выберем наш plugins.css
-        .pipe(concat('plugins.css')) //Соберем все css
-        //.pipe(cssmin()) //Сожмем
-        .pipe(gulp.dest(path.build.css)) //И в build
-        .pipe(connect.reload()); //перезагрузим
+    gulp.src(path.src.js)
+        .pipe(rigger())
+        .pipe(gulp.dest(path.build.js))
+        .pipe(livereload());
 });
 
 
 //задача по сборке своих стилей
 gulp.task('style:build', function () {
-    gulp.src(path.src.style) //Выберем наш main.styl
-        .pipe(sourcemaps.init()) //То же самое что и с js
-        .pipe(stylus({use: nib()})) //Скомпилируем
+    gulp.src(path.src.style)
+        .pipe(sourcemaps.init())
+        .pipe(stylus({
+            'include css': true
+        }))
+        .pipe(autoprefixer({
+            browsers: [
+                'last 2 versions',
+                '> 1%',
+                "ie 8"
+                ]
+        }))
         .pipe(sourcemaps.write())
-        .pipe(gulp.dest(path.build.css)) //И в build
-        .pipe(connect.reload()); //перезагрузим
+        .pipe(gulp.dest(path.build.css))
+        .pipe(livereload());
 });
 
 
 //задача по сборке картинок
 gulp.task('image:build', function () {
-    gulp.src(path.src.img) //Выберем наши картинки
-        .pipe(imagemin({ //Сожмем их
-            progressive: true,
-            svgoPlugins: [{removeViewBox: false}],
-            use: [pngquant()],
-            interlaced: true
-        }))
-        .pipe(gulp.dest(path.build.img)) //И бросим в build
-        .pipe(connect.reload());
+    gulp.src(path.src.img)
+        .pipe(pngquant({ quality: '65-80', speed: 4 })())
+        .pipe(gulp.dest(path.build.img))
+        .pipe(livereload());
 });
 
 //задача по сборке шрифтов
 gulp.task('fonts:build', function() {
-    gulp.src(path.src.fonts) //выбираем шрифты
-        .pipe(gulp.dest(path.build.fonts)); // бросаем их в билд
+    gulp.src(path.src.fonts)
+        .pipe(gulp.dest(path.build.fonts))
+        .pipe(livereload());
 });
 
 
 // задача build
 gulp.task('build', [
     'html:build',
-    'jsplugins:build',
     'js:build',
-    'styleplugin:build',
     'style:build',
     'fonts:build',
     'image:build',
-    'sprite'
+    'sprite:build'
 ]);
 
 
 //наблюдаем за изменением файлов
 gulp.task('watch', function(){
-    watch([path.watch.html], function(event, cb) {
-        gulp.start('html:build');
-    });
-    watch([path.watch.style], function(event, cb) {
-        gulp.start('styleplugin:build');
-        gulp.start('style:build');
-    });
-    watch([path.watch.js], function(event, cb) {
-        gulp.start('jsplugins:build');
-        gulp.start('js:build');
-    });
-    watch([path.watch.img], function(event, cb) {
-        gulp.start('image:build');
-        gulp.start('sprite');
-    });
-    watch([path.watch.fonts], function(event, cb) {
-        gulp.start('fonts:build');
-    });
+    livereload.listen();
+    gulp.watch(path.watch.html, ['html:build']);
+    gulp.watch(path.watch.style, ['style:build']);
+    gulp.watch(path.watch.js, ['js:build']);
+    gulp.watch(path.watch.img, ['image:build']);
+    gulp.watch(path.watch.sprites, ['sprite:build']);
+    gulp.watch(path.watch.fonts, ['fonts:build']);
 });
 
 
@@ -201,9 +168,9 @@ gulp.task('clean', function (cb) {
 
 //открываем браузер
 gulp.task('openbrowser', function() {
-    opn( 'http://' + server.host + ':' + server.port + '/build' );
+    opn( 'http://' + server.host + ':' + server.port + '/build/' );
 });
 
 
 //дефолтная задача по запуску всех задача
-gulp.task('default', ['build', 'webserver', 'watch', 'openbrowser']);
+gulp.task('default', ['build', 'watch', 'webserver', 'openbrowser']);
