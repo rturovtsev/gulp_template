@@ -1,13 +1,13 @@
 {
-  "name": "gulp-project",
-  "version": "0.2.0",
-  "description": "Sugrob gulp project",
+  "name": "new_sozd",
+  "version": "0.0.1",
+  "description": "new sozd",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/sugrob69/gulp_template.git"
+    "url": "https://github.com/sugrob69/new_sozd.git"
   },
   "keywords": [
     "gulp",
@@ -17,21 +17,22 @@
   "author": "Rostislav Turovtsev <sugrob.boid@gmail.com>",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/sugrob69/gulp_template/issues"
+    "url": "https://github.com/sugrob69/new_sozd/issues"
   },
-  "homepage": "https://github.com/sugrob69/gulp_template",
+  "homepage": "https://github.com/sugrob69/new_sozd",
   "devDependencies": {
-    "gulp": "^3.8.11",
-    "gulp-autoprefixer": "^2.1.0",
-    "gulp-connect": "^2.2.0",
-    "gulp-livereload": "^3.8.0",
-    "gulp-rigger": "^0.5.8",
-    "gulp-sourcemaps": "^1.5.1",
-    "gulp-stylus": "^2.0.1",
-    "gulp-watch": "^4.2.3",
-    "gulp.spritesmith": "^3.5.3",
-    "imagemin-pngquant": "^4.0.0",
-    "opn": "^1.0.1",
-    "rimraf": "^2.3.2"
+    "gulp": "^3.9.0",
+    "gulp-autoprefixer": "*",
+    "gulp-connect": "*",
+    "gulp-jade": "*",
+    "gulp-livereload": "*",
+    "gulp-rigger": "*",
+    "gulp-sourcemaps": "*",
+    "gulp-stylus": "*",
+    "gulp-watch": "*",
+    "gulp.spritesmith": "*",
+    "imagemin-pngquant": "*",
+    "opn": "*",
+    "rimraf": "*"
   }
 }

@@ -1,4 +1,4 @@
-Gulp template v 0.2.0
+Gulp template v 0.3.0
 ========
 
 npm i with --save-dev
