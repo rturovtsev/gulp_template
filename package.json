@@ -1,13 +1,13 @@
 {
-  "name": "new_sozd",
+  "name": "project",
   "version": "0.0.1",
-  "description": "new sozd",
+  "description": "project",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/sugrob69/new_sozd.git"
+    "url": "https://github.com/sugrob69/gulp_template.git"
   },
   "keywords": [
     "gulp",

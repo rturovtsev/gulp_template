@@ -41,7 +41,7 @@ var path = {
         html: 'src/**/*.html',
         jade: 'src/**/*.jade',
         js: 'src/js/**/*.js',
-        style: 'src/css/**/*.styl',
+        style: 'src/**/*.styl',
         img: 'src/img/*.*',
         svg: 'src/img/svg/*.svg',
         fonts: 'src/fonts/**/*.*',

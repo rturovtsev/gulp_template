@@ -15,6 +15,7 @@
   "dependencies": {
     "jquery": "1.*",
     "bootstrap-stylus": "*",
-    "bootstrap-datepicker": "*"
+    "bootstrap-datepicker": "*",
+    "malihu-custom-scrollbar-plugin": "*"
   }
 }
