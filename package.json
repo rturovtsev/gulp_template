@@ -1,6 +1,6 @@
 {
   "name": "project",
-  "version": "0.0.1",
+  "version": "1.0.0",
   "description": "project",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -17,22 +17,15 @@
   "author": "Rostislav Turovtsev <sugrob.boid@gmail.com>",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/sugrob69/new_sozd/issues"
+    "url": "https://github.com/sugrob69/"
   },
-  "homepage": "https://github.com/sugrob69/new_sozd",
+  "homepage": "https://github.com/sugrob69/",
   "devDependencies": {
-    "gulp": "^3.9.0",
+    "gulp": "gulpjs/gulp#4.0",
     "gulp-autoprefixer": "*",
-    "gulp-connect": "*",
+    "gulp-if": "*",
     "gulp-jade": "*",
-    "gulp-livereload": "*",
-    "gulp-rigger": "*",
     "gulp-sourcemaps": "*",
-    "gulp-stylus": "*",
-    "gulp-watch": "*",
-    "gulp.spritesmith": "*",
-    "imagemin-pngquant": "*",
-    "opn": "*",
-    "rimraf": "*"
+    "gulp-stylus": "*"
   }
 }
