@@ -1,6 +1,6 @@
-Gulp template v 0.3.1
+Gulp4 template v 1.0.0
 ========
 
-npm i with --save-dev
-
+cd gulp_template
+npm i
 bower i

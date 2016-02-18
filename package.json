@@ -1,25 +1,9 @@
 {
-  "name": "project",
+  "name": "gulp_template",
   "version": "1.0.0",
-  "description": "project",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/sugrob69/gulp_template.git"
-  },
-  "keywords": [
-    "gulp",
-    "tasks",
-    "build"
-  ],
-  "author": "Rostislav Turovtsev <sugrob.boid@gmail.com>",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/sugrob69/"
-  },
-  "homepage": "https://github.com/sugrob69/",
+  "description": "Template for gulp 4",
+  "main": "gulpfile.js",
+  "dependencies": {},
   "devDependencies": {
     "gulp": "gulpjs/gulp#4.0",
     "gulp-autoprefixer": "*",
@@ -27,5 +11,21 @@
     "gulp-jade": "*",
     "gulp-sourcemaps": "*",
     "gulp-stylus": "*"
-  }
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sugrob69/gulp_template.git"
+  },
+  "keywords": [
+    "gulp4"
+  ],
+  "author": "Sugrob69",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/sugrob69/gulp_template/issues"
+  },
+  "homepage": "https://github.com/sugrob69/gulp_template#readme"
 }
