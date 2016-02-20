@@ -6,11 +6,16 @@
   "dependencies": {},
   "devDependencies": {
     "gulp": "gulpjs/gulp#4.0",
+    "browser-sync": "*",
     "gulp-autoprefixer": "*",
     "gulp-if": "*",
+    "gulp-imagemin": "*",
     "gulp-jade": "*",
+    "gulp-newer": "*",
+    "gulp-notify": "*",
     "gulp-sourcemaps": "*",
-    "gulp-stylus": "*"
+    "gulp-stylus": "*",
+    "multipipe": "*"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
