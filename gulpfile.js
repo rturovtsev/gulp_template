@@ -1,17 +1,6 @@
 'use strict';
 
-const isDevelopment = !process.env.NODE_ENV || process.env.NODE_ENV == 'development';
 const gulp = require('gulp');
-const stylus = require('gulp-stylus');
-const sourcemaps = require('gulp-sourcemaps');
-const gulpIf = require('gulp-if');
-const del = require('del');
-const autoprefixer = require('gulp-autoprefixer');
-const newer = require('gulp-newer');
-const imagemin = require('gulp-imagemin');
-const browserSync = require('browser-sync').create();
-const notify = require('gulp-notify');
-const multipipe = require('multipipe');
 
 const path = {
 	build: { //готовые файлы
@@ -46,57 +35,54 @@ const path = {
 	},
 	server: {
 		dest: 'build/'
-	}
+	},
 	clean: './build'
 };
 
 
-gulp.task('stylus', function() {
-	return multipipe(
-		gulp.src(path.src.style, {since: gulp.lastRun('stylus')}),
-		gulpIf(isDevelopment, sourcemaps.init()),
-		stylus({
-			'include css': true
-		}),
-		gulpIf(isDevelopment, sourcemaps.write()),
-		gulp.dest(path.dest.css)
-	).on('error', notify.onError());
+function lazyRequireTask(taskName, path, options) {
+    options = options || {};
+    options.taskName = taskName;
+    gulp.task(taskName, function(callback) {
+        let task = require(path).call(this, options);
+
+        return task(callback);
+    });
+}
+
+
+lazyRequireTask('stylus', './tasks/stylus.js', {
+    src: path.src.style,
+    dest: path.build.css
 });
 
 
-gulp.task('svg', function () {
-	return gulp.src(path.src.svg, {since: gulp.lastRun('svg')})
-		.pipe(newer(path.build.svg))
-		.pipe(gulp.dest(path.build.svg));
+lazyRequireTask('svg', './tasks/svg.js', {
+    src: path.src.svg,
+    dest: path.build.svg
 });
 
 
-gulp.task('fonts', function() {
-	return gulp.src(path.src.fonts, {since: gulp.lastRun('fonts')})
-		.pipe(newer(path.build.fonts))
-		.pipe(gulp.dest(path.build.fonts));
+lazyRequireTask('fonts', './tasks/fonts.js', {
+    src: path.src.fonts,
+    dest: path.build.fonts
 });
 
 
-gulp.task('img', function () {
-    return gulp.src(path.src.img, {since: gulp.lastRun('img')})
-    	.pipe(newer(path.build.img))
-        .pipe(imagemin())
-        .pipe(gulp.dest(path.build.img));
+lazyRequireTask('img', './tasks/img.js', {
+    src: path.src.fonts,
+    dest: path.build.fonts
 });
 
 
-gulp.task('del', function() {
-	return del(path.clean);
+lazyRequireTask('del', './tasks/del.js', {
+    dest: path.clean
 });
 
 
-gulp.task('serve', function() {
-	browserSync.init({
-		server: path.server.dest
-	});
-
-	browserSync.watch(path.watch.server).on('change', browserSync.reload);
+lazyRequireTask('serve', './tasks/serve.js', {
+    dest: path.server.dest,
+    watch: path.watch.server
 });
 
 
@@ -108,6 +94,6 @@ gulp.task('watch', function() {
 });
 
 
-gulp.task('build', gulp.series('del', gulp.parallel('stylus', 'svg', 'fonts', 'img'));
+gulp.task('build', gulp.series('del', gulp.parallel('stylus', 'svg', 'fonts', 'img')));
 
 gulp.task('dev', gulp.series('build', gulp.parallel('watch', 'serve')));
