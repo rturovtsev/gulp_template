@@ -5,6 +5,7 @@
   "main": "gulpfile.js",
   "dependencies": {},
   "devDependencies": {
+    "bower": "^1.7.7",
     "browser-sync": "*",
     "del": "*",
     "gulp": "gulpjs/gulp#4.0",
@@ -15,6 +16,7 @@
     "gulp-load-plugins": "^1.2.0",
     "gulp-newer": "*",
     "gulp-notify": "*",
+    "gulp-rigger": "^0.5.8",
     "gulp-sourcemaps": "*",
     "gulp-stylus": "*",
     "multipipe": "*"

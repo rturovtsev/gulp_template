@@ -10,12 +10,22 @@ const isDevelopment = !process.env.NODE_ENV || process.env.NODE_ENV == 'developm
 module.exports = function (options) {
 	return function () {
 		return multipipe(
-			gulp.src(options.src, {since: gulp.lastRun('stylus')}),
-			$.if(isDevelopment, $.sourcemaps.init()),
+			gulp.src([options.src, options.vend], {since: gulp.lastRun('stylus')}),
+			$.if(isDevelopment && 'main.styl', $.sourcemaps.init()),
 			$.stylus({
 				'include css': true
 			}),
-			$.if(isDevelopment, $.sourcemaps.write()),
+			$.if(isDevelopment && 'main.styl', $.autoprefixer({
+	            browsers: [
+	                '> 1%',
+	                'last 2 versions',
+	                'IE 8',
+	                'IE 9',
+	                'IE 10',
+	                'IE 11'
+	                ]
+	        })),
+			$.if(isDevelopment && 'main.css', $.sourcemaps.write()),
 			gulp.dest(options.dest)
 		).on('error', $.notify.onError());
 	};

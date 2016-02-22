@@ -3,34 +3,27 @@
 const gulp = require('gulp');
 
 const path = {
-	build: { //готовые файлы
-		build: 'html/',
-		js: 'build/common/js/',
-		css: 'build/common/css/',
-		img: 'build/common/img/',
-		svg: 'build/common/img/svg/',
-		fonts: 'build/common/fonts/'
+	build: {
+        html: './build/'
+		css: './build/common/css/',
+		img: './build/common/img/',
+		svg: './build/common/img/svg/',
+		fonts: './build/common/fonts/'
 	},
-	src: { //исходники
-		html: 'src/*.html',
-		jade: 'src/*.jade',
-		js: 'src/js/*.js',
-		style: 'src/css/style.styl',
-		stylesprite: 'src/css/',
-		img: 'src/img/*.*',
-		svg: 'src/img/svg/*.svg',
-		fonts: 'src/fonts/**/*.*',
-		sprites: 'src/img/sprites/*.*'
+	src: {
+        jade: './src/*.jade'
+        html: './src/*.html'
+        styleStylus: './src/css/main.styl',
+		styleStylusVendor: './src/css/vendor.styl',
+		img: './src/img/*.*',
+		svg: './src/img/svg/*.svg',
+		fonts: './src/fonts/**/*.*'
 	},
-	watch: { //где следим
-		html: 'src/**/*.html',
-		jade: 'src/**/*.jade',
-		js: 'src/js/**/*.js',
+	watch: {
 		style: 'src/**/*.styl',
 		img: 'src/img/*.*',
 		svg: 'src/img/svg/*.svg',
 		fonts: 'src/fonts/**/*.*',
-		sprites: 'src/img/sprites/*.*',
 		server: 'build/**/*.*'
 	},
 	server: {
@@ -51,8 +44,21 @@ function lazyRequireTask(taskName, path, options) {
 }
 
 
+lazyRequireTask('html', './tasks/html.js', {
+    src: path.src.html,
+    dest: path.build.html
+});
+
+
+lazyRequireTask('jade', './tasks/jade.js', {
+    src: path.src.jade,
+    dest: path.build.html
+});
+
+
 lazyRequireTask('stylus', './tasks/stylus.js', {
-    src: path.src.style,
+    src: path.src.styleStylus,
+    vend: path.src.styleStylusVendor,
     dest: path.build.css
 });
 
@@ -70,8 +76,8 @@ lazyRequireTask('fonts', './tasks/fonts.js', {
 
 
 lazyRequireTask('img', './tasks/img.js', {
-    src: path.src.fonts,
-    dest: path.build.fonts
+    src: path.src.img,
+    dest: path.build.img
 });
 
 
@@ -87,7 +93,7 @@ lazyRequireTask('serve', './tasks/serve.js', {
 
 
 gulp.task('watch', function() {
-	gulp.watch(path.watch.style, gulp.series('stylus'));
+	gulp.watch(path.watch.styleStylus, gulp.series('stylus'));
 	gulp.watch(path.watch.svg, gulp.series('svg'));
 	gulp.watch(path.watch.fonts, gulp.series('fonts'));
 	gulp.watch(path.watch.img, gulp.series('img'));
