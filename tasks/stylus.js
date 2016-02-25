@@ -10,7 +10,7 @@ const isDevelopment = !process.env.NODE_ENV || process.env.NODE_ENV == 'developm
 module.exports = function (options) {
 	return function () {
 		return multipipe(
-			gulp.src([options.src, options.vend], {since: gulp.lastRun('stylus')}),
+			gulp.src([options.src, options.vend], {since: gulp.lastRun(options.taskName)}),
 			$.if(isDevelopment && 'main.styl', $.sourcemaps.init()),
 			$.stylus({
 				'include css': true
