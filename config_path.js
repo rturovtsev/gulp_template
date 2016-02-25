@@ -5,6 +5,7 @@ const path = {
 		js: './build/common/js/',
 		img: './build/common/img/',
 		svg: './build/common/img/svg/',
+		svg_font: './build/common/fonts/iconfont/',
 		fonts: './build/common/fonts/'
 	},
 	src: {
@@ -15,6 +16,9 @@ const path = {
 		styleStylusVendor: './src/css/vendor.styl',
 		img: './src/img/*.*',
 		svg: './src/img/svg/*.svg',
+		svg_icons: './src/img/svg_icons/*.svg',
+		svg_css_tpl: './tmp/iconfont_tpl.css',
+		svg_css: '../../../../tmp/iconfont.css',
 		fonts: './src/fonts/**/*.*'
 	},
 	assets: {
@@ -31,8 +35,9 @@ const path = {
 		jade: './src/**/*.jade',
 		js: './src/js/*.js',
         html: './src/*.html',
-		styleStylus: 'src/**/*.styl',
+		styleStylus: 'src/**/*.{styl, css}',
 		img: 'src/img/*.*',
+		svg_icons: './src/img/svg_icons/*.svg',
 		svg: 'src/img/svg/*.svg',
 		fonts: 'src/fonts/**/*.*',
 		server: 'build/**/*.*'

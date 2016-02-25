@@ -6,20 +6,22 @@
   "dependencies": {},
   "devDependencies": {
     "bower": "^1.7.7",
-    "browser-sync": "*",
-    "del": "*",
+    "browser-sync": "^2.11.1",
+    "del": "^2.2.0",
     "gulp": "gulpjs/gulp#4.0",
-    "gulp-autoprefixer": "*",
-    "gulp-if": "*",
-    "gulp-imagemin": "*",
-    "gulp-jade": "*",
+    "gulp-autoprefixer": "^3.1.0",
+    "gulp-iconfont": "^6.0.0",
+    "gulp-iconfont-css": "^2.0.0",
+    "gulp-if": "^2.0.0",
+    "gulp-imagemin": "^2.4.0",
+    "gulp-jade": "^1.1.0",
     "gulp-load-plugins": "^1.2.0",
-    "gulp-newer": "*",
-    "gulp-notify": "*",
+    "gulp-newer": "^1.1.0",
+    "gulp-notify": "^2.2.0",
     "gulp-rigger": "^0.5.8",
-    "gulp-sourcemaps": "*",
-    "gulp-stylus": "*",
-    "multipipe": "*"
+    "gulp-sourcemaps": "^1.6.0",
+    "gulp-stylus": "^2.3.0",
+    "multipipe": "^0.3.0"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"

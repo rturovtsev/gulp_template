@@ -30,7 +30,20 @@ lazyRequireTask('js', './tasks/js.js', {
     dest: path.build.js
 });
 
+lazyRequireTask('iconfont', './tasks/iconfont.js', {
+    src: path.src.svg_icons,
+    tpl: path.src.svg_css_tpl,
+    css: path.src.svg_css,
+    dest: path.build.svg_font
+});
+
 lazyRequireTask('stylus', './tasks/stylus.js', {
+    src: path.src.styleStylus,
+    vend: path.src.styleStylusVendor,
+    dest: path.build.css
+});
+
+lazyRequireTask('stylus:all', './tasks/stylus_all.js', {
     src: path.src.styleStylus,
     vend: path.src.styleStylusVendor,
     dest: path.build.css
@@ -81,9 +94,10 @@ gulp.task('watch', function() {
 	gulp.watch(path.watch.js, gulp.series('js'));
 	gulp.watch(path.assets.js.src, gulp.series('assets:js'));
 	gulp.watch(path.assets.fonts.src, gulp.series('assets:fonts'));
+	gulp.watch(path.watch.svg_icons, gulp.series('iconfont', 'stylus:all'));
 });
 
 
-gulp.task('build', gulp.series('del', gulp.parallel('html', 'jade', 'stylus', 'assets:js', 'js', 'svg', 'assets:fonts', 'fonts', 'img')));
+gulp.task('build', gulp.series('del', 'iconfont', gulp.parallel('html', 'jade', 'stylus', 'assets:js', 'js', 'svg', 'assets:fonts', 'fonts', 'img')));
 
 gulp.task('default', gulp.series('build', gulp.parallel('watch', 'serve')));
