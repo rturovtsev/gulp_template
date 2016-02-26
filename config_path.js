@@ -31,6 +31,10 @@ const path = {
 			dest: './build/common/fonts/'
 		}
 	},
+	zip: {
+		src: './build/**/*.*',
+		dest: './archives/'
+	},
 	watch: {
 		jade: './src/**/*.jade',
 		js: './src/js/*.js',

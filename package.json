@@ -21,6 +21,7 @@
     "gulp-rigger": "^0.5.8",
     "gulp-sourcemaps": "^1.6.0",
     "gulp-stylus": "^2.3.0",
+    "gulp-zip": "^3.2.0",
     "multipipe": "^0.3.0"
   },
   "scripts": {

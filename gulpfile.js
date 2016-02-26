@@ -83,6 +83,11 @@ lazyRequireTask('serve', './tasks/serve.js', {
     watch: path.watch.server
 });
 
+lazyRequireTask('zip', './tasks/zip.js', {
+    src: path.zip.src,
+    dest: path.zip.dest
+});
+
 
 gulp.task('watch', function() {
 	gulp.watch(path.watch.styleStylus, gulp.series('stylus'));
@@ -99,5 +104,7 @@ gulp.task('watch', function() {
 
 
 gulp.task('build', gulp.series('del', 'iconfont', gulp.parallel('html', 'jade', 'stylus', 'assets:js', 'js', 'svg', 'assets:fonts', 'fonts', 'img')));
+
+gulp.task('archive', gulp.series('build', 'zip'));
 
 gulp.task('default', gulp.series('build', gulp.parallel('watch', 'serve')));
