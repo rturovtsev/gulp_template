@@ -49,7 +49,14 @@ const path = {
 	server: {
 		dest: 'build/'
 	},
-	clean: './build'
+	clean: './build',
+	ssh: {
+		host: '188.166.6.60',
+		user: 'root',
+		pass: null,
+		remotePath: '/var/www/static/',
+		src: './build/**/*.*'
+	}
 };
 
 module.exports = path;

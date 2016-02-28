@@ -88,6 +88,13 @@ lazyRequireTask('zip', './tasks/zip.js', {
     dest: path.zip.dest
 });
 
+lazyRequireTask('ssh', './tasks/ssh.js', {
+    src: path.ssh.src,
+    host: path.ssh.host,
+    user: path.ssh.user,
+    pass: path.ssh.pass,
+    remotePath: path.ssh.remotePath
+});
 
 gulp.task('watch', function() {
 	gulp.watch(path.watch.styleStylus, gulp.series('stylus'));
@@ -106,5 +113,7 @@ gulp.task('watch', function() {
 gulp.task('build', gulp.series('del', 'iconfont', gulp.parallel('html', 'jade', 'stylus', 'assets:js', 'js', 'svg', 'assets:fonts', 'fonts', 'img')));
 
 gulp.task('archive', gulp.series('build', 'zip'));
+
+gulp.task('deploy', gulp.series('build', 'ssh'));
 
 gulp.task('default', gulp.series('build', gulp.parallel('watch', 'serve')));
