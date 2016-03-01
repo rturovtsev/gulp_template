@@ -6,7 +6,8 @@ const path = {
 		img: './build/common/img/',
 		svg: './build/common/img/svg/',
 		svg_font: './build/common/fonts/iconfont/',
-		fonts: './build/common/fonts/'
+		fonts: './build/common/fonts/',
+		data: './tmp/'
 	},
 	src: {
         jade: './src/*.jade',
@@ -19,7 +20,8 @@ const path = {
 		svg_icons: './src/img/svg_icons/*.svg',
 		svg_css_tpl: './tmp/iconfont_tpl.css',
 		svg_css: '../../../../tmp/iconfont.css',
-		fonts: './src/fonts/**/*.*'
+		fonts: './src/fonts/**/*.*',
+		data: './src/blocks/**/data.js'
 	},
 	assets: {
 		js: {
@@ -44,7 +46,8 @@ const path = {
 		svg_icons: './src/img/svg_icons/*.svg',
 		svg: 'src/img/svg/*.svg',
 		fonts: 'src/fonts/**/*.*',
-		server: 'build/**/*.*'
+		server: 'build/**/*.*',
+		data: './src/blocks/**/data.js'
 	},
 	server: {
 		dest: 'build/'

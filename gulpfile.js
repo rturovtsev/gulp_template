@@ -96,6 +96,11 @@ lazyRequireTask('ssh', './tasks/ssh.js', {
     remotePath: path.ssh.remotePath
 });
 
+lazyRequireTask('data', './tasks/data.js', {
+    src: path.src.data,
+    dest: path.build.data
+});
+
 gulp.task('watch', function() {
 	gulp.watch(path.watch.styleStylus, gulp.series('stylus'));
 	gulp.watch(path.watch.svg, gulp.series('svg'));
@@ -106,11 +111,12 @@ gulp.task('watch', function() {
 	gulp.watch(path.watch.js, gulp.series('js'));
 	gulp.watch(path.assets.js.src, gulp.series('assets:js'));
 	gulp.watch(path.assets.fonts.src, gulp.series('assets:fonts'));
-	gulp.watch(path.watch.svg_icons, gulp.series('iconfont', 'stylus:all'));
+    gulp.watch(path.watch.svg_icons, gulp.series('iconfont', 'stylus:all'));
+	gulp.watch(path.watch.data, gulp.series('data', 'jade'));
 });
 
 
-gulp.task('build', gulp.series('del', 'iconfont', gulp.parallel('html', 'jade', 'stylus', 'assets:js', 'js', 'svg', 'assets:fonts', 'fonts', 'img')));
+gulp.task('build', gulp.series('del', 'iconfont', 'data', gulp.parallel('html', 'jade', 'stylus', 'assets:js', 'js', 'svg', 'assets:fonts', 'fonts', 'img')));
 
 gulp.task('archive', gulp.series('build', 'zip'));
 
