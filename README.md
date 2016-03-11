@@ -1,4 +1,4 @@
-Gulp4 template v 1.0.0
+Gulp4 template v 1.0.1
 ========
 
 Install Git
